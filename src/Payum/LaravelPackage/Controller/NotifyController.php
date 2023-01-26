@@ -4,6 +4,7 @@ namespace Payum\LaravelPackage\Controller;
 use Payum\Core\Reply\ReplyInterface;
 use Payum\Core\Request\Notify;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class NotifyController extends PayumController
 {
@@ -13,7 +14,7 @@ class NotifyController extends PayumController
 
         $gateway->execute(new Notify(null));
 
-        return \Response::make(null, 204);
+        return Response::make(null, 204);
     }
 
     public function doAction($payumToken)
@@ -32,6 +33,6 @@ class NotifyController extends PayumController
            return $this->convertReply($reply);
         }
 
-        return \Response::make(null, 204);
+        return Response::make(null, 204);
     }
 }

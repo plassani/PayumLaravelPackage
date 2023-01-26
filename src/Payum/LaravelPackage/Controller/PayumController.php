@@ -5,6 +5,7 @@ use Illuminate\Routing\Controller;
 use Payum\Core\Bridge\Symfony\ReplyToSymfonyResponseConverter;
 use Payum\Core\Payum;
 use Payum\Core\Reply\ReplyInterface;
+use Payum\Core\Reply\HttpRedirect;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class PayumController extends Controller
@@ -14,7 +15,7 @@ abstract class PayumController extends Controller
      */
     protected function getPayum()
     {
-        return \App::make('payum');
+        return app()->make('payum');
     }
 
     /**
@@ -25,7 +26,7 @@ abstract class PayumController extends Controller
     protected function convertReply(ReplyInterface $reply)
     {
         /** @var ReplyToSymfonyResponseConverter $converter */
-        $converter = \App::make('payum.converter.reply_to_http_response');
+        $converter = app()->make('payum.converter.reply_to_http_response');
 
         return $converter->convert($reply);
     }

@@ -10,7 +10,7 @@ class AuthorizeController extends PayumController
     public function doAction($payum_token)
     {
         /** @var Request $request */
-        $request = \App::make('request');
+        $request = app()->make('request');
         $request->attributes->set('payum_token', $payum_token);
 
         $token = $this->getPayum()->getHttpRequestVerifier()->verify($request);
@@ -25,6 +25,6 @@ class AuthorizeController extends PayumController
 
         $this->getPayum()->getHttpRequestVerifier()->invalidate($token);
 
-        return \Redirect::to($token->getAfterUrl());
+        return new HttpRedirect($token->getAfterUrl());
     }
 }
