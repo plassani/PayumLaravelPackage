@@ -102,28 +102,54 @@ class PayumServiceProvider extends ServiceProvider
     {
         $route = $this->app->make('router');
 
-        $route->any('/payment/authorize/{payum_token}', array(
+        $route->get('/payment/authorize/{payum_token}', array(
             'as' => 'payum_authorize_do',
             'uses' => 'Payum\LaravelPackage\Controller\AuthorizeController@doAction'
         ));
 
-        $route->any('/payment/capture/{payum_token}', array(
+
+        $route->post('/payment/authorize/{payum_token}', array(
+            'as' => 'payum_authorize_do_post',
+            'uses' => 'Payum\LaravelPackage\Controller\AuthorizeController@doAction'
+        ));
+
+        $route->get('/payment/capture/{payum_token}', array(
             'as' => 'payum_capture_do',
             'uses' => 'Payum\LaravelPackage\Controller\CaptureController@doAction'
         ));
 
-        $route->any('/payment/refund/{payum_token}', array(
+        $route->post('/payment/capture/{payum_token}', array(
+            'as' => 'payum_capture_do_post',
+            'uses' => 'Payum\LaravelPackage\Controller\CaptureController@doAction'
+        ));
+
+        $route->get('/payment/refund/{payum_token}', array(
             'as' => 'payum_refund_do',
             'uses' => 'Payum\LaravelPackage\Controller\RefundController@doAction'
         ));
 
-        $route->any('/payment/notify/{payum_token}', array(
+        $route->post('/payment/refund/{payum_token}', array(
+            'as' => 'payum_refund_do_post',
+            'uses' => 'Payum\LaravelPackage\Controller\RefundController@doAction'
+        ));
+
+        $route->get('/payment/notify/{payum_token}', array(
             'as' => 'payum_notify_do',
             'uses' => 'Payum\LaravelPackage\Controller\NotifyController@doAction'
         ));
 
-        $route->any('/payment/notify/unsafe/{gateway_name}', array(
+        $route->post('/payment/notify/{payum_token}', array(
+            'as' => 'payum_notify_do_post',
+            'uses' => 'Payum\LaravelPackage\Controller\NotifyController@doAction'
+        ));
+
+        $route->get('/payment/notify/unsafe/{gateway_name}', array(
             'as' => 'payum_notify_do_unsafe',
+            'uses' => 'Payum\LaravelPackage\Controller\NotifyController@doUnsafeAction'
+        ));
+
+        $route->post('/payment/notify/unsafe/{gateway_name}', array(
+            'as' => 'payum_notify_do_unsafe_post',
             'uses' => 'Payum\LaravelPackage\Controller\NotifyController@doUnsafeAction'
         ));
     }
