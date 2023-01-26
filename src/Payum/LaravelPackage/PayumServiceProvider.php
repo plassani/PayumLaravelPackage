@@ -1,7 +1,7 @@
 <?php
 namespace Payum\LaravelPackage;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\ServiceProvider;
 use Illuminate\Foundation\Application;
 use Payum\Core\Bridge\Symfony\ReplyToSymfonyResponseConverter;
 use Payum\Core\Bridge\Symfony\Security\HttpRequestVerifier;
