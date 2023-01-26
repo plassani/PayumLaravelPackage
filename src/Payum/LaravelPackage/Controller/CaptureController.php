@@ -1,14 +1,17 @@
 <?php
 namespace Payum\LaravelPackage\Controller;
 
+use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Reply\ReplyInterface;
 use Payum\Core\Request\Capture;
 use Symfony\Component\HttpFoundation\Request;
 
 class CaptureController extends PayumController
 {
-    public function doAction($request, $payum_token)
+    public function doAction($payum_token)
     {
+        /** @var Request $request */
+        $request = app()->make('request');
         $request->attributes->set('payum_token', $payum_token);
 
         $token = $this->getPayum()->getHttpRequestVerifier()->verify($request);
@@ -22,6 +25,6 @@ class CaptureController extends PayumController
 
         $this->getPayum()->getHttpRequestVerifier()->invalidate($token);
 
-        return \Redirect::to($token->getAfterUrl());
+        return new HttpRedirect($token->getAfterUrl());
     }
 }
