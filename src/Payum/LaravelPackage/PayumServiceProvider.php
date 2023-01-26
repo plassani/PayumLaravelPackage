@@ -1,8 +1,7 @@
 <?php
 namespace Payum\LaravelPackage;
 
-use Illuminate\Contracts\Support\ServiceProvider;
-use Illuminate\Foundation\Application;
+use Illuminate\Support\ServiceProvider;
 use Payum\Core\Bridge\Symfony\ReplyToSymfonyResponseConverter;
 use Payum\Core\Bridge\Symfony\Security\HttpRequestVerifier;
 use Payum\Core\PayumBuilder;
@@ -24,12 +23,6 @@ class PayumServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (version_compare(Application::VERSION, '5.0', '<')) {
-            $srcDir = realpath(__DIR__ . '/../../');
-
-            $this->package('payum/payum-laravel-package', 'payum-laravel-package', $srcDir);
-        }
-
         $this->defineRoutes();
     }
 
